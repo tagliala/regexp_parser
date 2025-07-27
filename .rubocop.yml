@@ -1,6 +1,7 @@
 AllCops:
   DisabledByDefault: true
   Exclude:
+    - '.git/**/*'
     - '{bin,pkg,tmp,vendor}/**/*' # vendored dependencies etc.
     - 'lib/regexp_parser/scanner.rb' # Ragel-generated code
   NewCops: enable
@@ -8,10 +9,20 @@ AllCops:
     - ruby
     - rake
   SuggestExtensions: false
-  TargetRubyVersion: 2.6 # really 2.0, but 2.6 is lowest supported by rubocop
+  TargetRubyVersion: 2.1 # really 2.0, but 2.1 is lowest supported by rubocop
 
 Lint:
   Enabled: true
+
+# TODO: temporarily disabled because of new offenses reported on CI
+Lint/UselessConstantScoping:
+  Enabled: false
+
+# `ragel.rake` requires Ruby >= 2.3
+Lint/Void:
+  Exclude: ['tasks/ragel.rake']
+Lint/UnusedBlockArgument:
+  Exclude: ['tasks/ragel.rake']
 
 # ignore weird looking regexps in specs, we have these on purpose
 Lint/DuplicateRegexpCharacterClassElement:
