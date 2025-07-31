@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Expression::FreeSpace) do
+RSpec.describe(Regexp::ExpressionFzs::FreeSpace) do
   specify('white space quantify raises error') do
     regexp = /
       a # Comment
@@ -10,7 +12,7 @@ RSpec.describe(Regexp::Expression::FreeSpace) do
     space = root[0]
 
     expect(space).to be_instance_of(FreeSpace::WhiteSpace)
-    expect { space.quantify(:dummy, '#') }.to raise_error(Regexp::Parser::Error)
+    expect { space.quantify(:dummy, '#') }.to raise_error(Regexp::ParserFzs::Error)
   end
 
   specify('comment quantify raises error') do
@@ -22,6 +24,6 @@ RSpec.describe(Regexp::Expression::FreeSpace) do
     comment = root[3]
 
     expect(comment).to be_instance_of(FreeSpace::Comment)
-    expect { comment.quantify(:dummy, '#') }.to raise_error(Regexp::Parser::Error)
+    expect { comment.quantify(:dummy, '#') }.to raise_error(Regexp::ParserFzs::Error)
   end
 end

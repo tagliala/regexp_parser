@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 ML = Regexp::MatchLength
@@ -49,7 +51,7 @@ RSpec.describe(Regexp::MatchLength) do
   describe('Expression::Base#inner_match_length') do
     it 'returns the MatchLength of an expression that does not count towards parent match_length' do
       exp = RP.parse(/(?=ab|cdef)/)[0]
-      expect(exp).to be_a Regexp::Expression::Assertion::Base
+      expect(exp).to be_a Regexp::ExpressionFzs::Assertion::Base
       expect(exp.match_length.minmax).to eq [0, 0]
       expect(exp.inner_match_length.minmax).to eq [2, 4]
     end

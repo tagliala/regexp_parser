@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'syntax' do |opts|
   opts[:implements].each do |type, tokens|
     tokens.each do |token|
@@ -18,7 +20,7 @@ end
 
 RSpec.shared_examples 'scan' do |pattern, checks|
   context "given the pattern #{pattern}" do
-    before(:all) { @tokens = Regexp::Scanner.scan(pattern) }
+    before(:all) { @tokens = Regexp::ScannerFzs.scan(pattern) }
 
     checks.each do |index, (type, token, text, ts, te)|
       it "scans token #{index} as #{token} #{type} at #{ts}..#{te}" do
@@ -37,7 +39,7 @@ end
 
 RSpec.shared_examples 'lex' do |pattern, checks|
   context "given the pattern #{pattern}" do
-    before(:all) { @tokens = Regexp::Lexer.lex(pattern) }
+    before(:all) { @tokens = Regexp::LexerFzs.lex(pattern) }
 
     checks.each do |index, (type, token, text, ts, te, lvl, set_lvl, cond_lvl)|
       it "lexes token #{index} as #{token} #{type} at #{lvl}, #{set_lvl}, #{cond_lvl}" do
@@ -58,7 +60,7 @@ end
 
 RSpec.shared_examples 'parse' do |pattern, checks|
   context "given the pattern #{pattern}" do
-    before(:all) { @root = Regexp::Parser.parse(pattern, '*') }
+    before(:all) { @root = Regexp::ParserFzs.parse(pattern, '*') }
 
     checks.each do |path, expectations|
       path = Array(path)

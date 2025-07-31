@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $VERBOSE = true
 
 require 'leto'
@@ -5,17 +7,17 @@ require 'regexp_property_values'
 require_relative 'support/capturing_stderr'
 require_relative 'support/shared_examples'
 
-req_warn = capturing_stderr { @required_now = require('regexp_parser') }
+req_warn = capturing_stderr { @required_now = require('regexp_parser_fzs') }
 req_warn.empty? || fail("requiring parser generated warnings:\n#{req_warn}")
 @required_now || fail("regexp_parser was required earlier than expected")
 
-RS = Regexp::Scanner
-RL = Regexp::Lexer
-RP = Regexp::Parser
-RE = Regexp::Expression
-T = Regexp::Syntax::Token
+RS = Regexp::ScannerFzs
+RL = Regexp::LexerFzs
+RP = Regexp::ParserFzs
+RE = Regexp::ExpressionFzs
+T = Regexp::SyntaxFzs::Token
 
-include Regexp::Expression
+include Regexp::ExpressionFzs
 
 def ruby_version_at_least(version)
   Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new(version)

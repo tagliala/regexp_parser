@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Scanner) do
+RSpec.describe(Regexp::ScannerFzs) do
   RSpec.shared_examples 'scan error' do |error, issue, source|
     it "raises #{error} for #{issue} `#{source}`" do
       expect { RS.scan(source) }.to raise_error(error)

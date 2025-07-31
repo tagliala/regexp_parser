@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Parser) do
+RSpec.describe(Regexp::ParserFzs) do
   specify('parse returns a root expression') do
     expect(RP.parse('abc')).to be_instance_of(Root)
   end
@@ -11,7 +13,7 @@ RSpec.describe(Regexp::Parser) do
 
   specify('parse root contains expressions') do
     root = RP.parse(/^a.c+[^one]{2,3}\b\d\\\C-C$/)
-    expect(root.expressions).to all(be_a Regexp::Expression::Base)
+    expect(root.expressions).to all(be_a Regexp::ExpressionFzs::Base)
   end
 
   specify('parse root options mi') do
@@ -23,10 +25,10 @@ RSpec.describe(Regexp::Parser) do
   end
 
   specify('parse no quantifier target raises error') do
-    expect { RP.parse('?abc') }.to raise_error(Regexp::Parser::Error)
+    expect { RP.parse('?abc') }.to raise_error(Regexp::ParserFzs::Error)
   end
 
   specify('parse sequence no quantifier target raises error') do
-    expect { RP.parse('abc|?def') }.to raise_error(Regexp::Parser::Error)
+    expect { RP.parse('abc|?def') }.to raise_error(Regexp::ParserFzs::Error)
   end
 end

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Expression::Shared) do
+RSpec.describe(Regexp::ExpressionFzs::Shared) do
   describe '::construct' do
     {
       Alternation                       => :meta,

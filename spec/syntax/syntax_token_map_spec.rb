@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Syntax::Token::Map) do
-  let(:map) { Regexp::Syntax::Token::Map }
-  let(:current_syntax) { Regexp::Syntax::CURRENT }
+RSpec.describe(Regexp::SyntaxFzs::Token::Map) do
+  let(:map) { Regexp::SyntaxFzs::Token::Map }
+  let(:current_syntax) { Regexp::SyntaxFzs::CURRENT }
 
   specify('is complete') do
     current_syntax.features.each do |type, tokens|

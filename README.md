@@ -1,4 +1,4 @@
-# Regexp::Parser
+# Regexp::ParserFzs
 
 [![Gem Version](https://badge.fury.io/rb/regexp_parser.svg)](http://badge.fury.io/rb/regexp_parser)
 [![Build Status](https://github.com/ammar/regexp_parser/workflows/tests/badge.svg)](https://github.com/ammar/regexp_parser/actions)
@@ -47,11 +47,11 @@ Here are the basic usage examples:
 ```ruby
 require 'regexp_parser'
 
-Regexp::Scanner.scan(regexp)
+Regexp::ScannerFzs.scan(regexp)
 
 Regexp::Lexer.lex(regexp)
 
-Regexp::Parser.parse(regexp)
+Regexp::ParserFzs.parse(regexp)
 ```
 
 All three methods accept a block as the last argument, which, if given, gets
@@ -72,7 +72,7 @@ All three methods accept either a `Regexp` or `String` (containing the pattern)
 ```ruby
 require 'regexp_parser'
 
-Regexp::Parser.parse(
+Regexp::ParserFzs.parse(
   "a+ # Recognizes a and A...",
   options: ::Regexp::EXTENDED | ::Regexp::IGNORECASE
 )
@@ -95,7 +95,7 @@ start/end offsets for each token found.
 ```ruby
 require 'regexp_parser'
 
-Regexp::Scanner.scan(/(ab?(cd)*[e-h]+)/) do |type, token, text, ts, te|
+Regexp::ScannerFzs.scan(/(ab?(cd)*[e-h]+)/) do |type, token, text, ts, te|
   puts "type: #{type}, token: #{token}, text: '#{text}' [#{ts}..#{te}]"
 end
 
@@ -118,7 +118,7 @@ A one-liner that uses map on the result of the scan to return the textual
 parts of the pattern:
 
 ```ruby
-Regexp::Scanner.scan(/(cat?([bhm]at)){3,5}/).map { |token| token[2] }
+Regexp::ScannerFzs.scan(/(cat?([bhm]at)){3,5}/).map { |token| token[2] }
 # => ["(", "cat", "?", "(", "[", "b", "h", "m", "]", "at", ")", ")", "{3,5}"]
 ```
 
@@ -296,7 +296,7 @@ require 'regexp_parser'
 
 regex = /a?(b+(c)d)*(?<name>[0-9]+)/
 
-tree = Regexp::Parser.parse(regex, 'ruby/2.1')
+tree = Regexp::ParserFzs.parse(regex, 'ruby/2.1')
 
 tree.traverse do |event, exp|
   puts "#{event}: #{exp.type} `#{exp.to_s}`"

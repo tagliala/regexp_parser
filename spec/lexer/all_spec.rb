@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Lexer) do
+RSpec.describe(Regexp::LexerFzs) do
   specify('lexer returns an array') do
     expect(RL.lex('abc')).to be_instance_of(Array)
   end
 
   specify('lexer returns tokens') do
     tokens = RL.lex('^abc+[^one]{2,3}\b\d\C-C$')
-    expect(tokens).to all(be_a Regexp::Token)
+    expect(tokens).to all(be_a Regexp::TokenFzs)
     expect(tokens.map { |token| token.to_a.length }).to all(eq 8)
   end
 

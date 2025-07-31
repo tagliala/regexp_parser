@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe('Property parsing') do
@@ -46,7 +48,7 @@ RSpec.describe('Property parsing') do
     root = RP.parse('\p{newline}', 'ruby/1.9')
     expect(root.expressions.last).to be_a(UnicodeProperty::Base)
 
-    expect { RP.parse('\p{newline}', 'ruby/2.0') }.to raise_error(Regexp::Syntax::NotImplementedError)
+    expect { RP.parse('\p{newline}', 'ruby/2.0') }.to raise_error(Regexp::SyntaxFzs::NotImplementedError)
   end
 
   # cannot test older Rubies because of https://bugs.ruby-lang.org/issues/18686
@@ -63,7 +65,7 @@ RSpec.describe('Property parsing') do
   # of the same prop (sentence_terminal). Let's ignore this unique case.
   if ruby_version_at_least('2.4.0')
     specify('parse only properties of current ruby') do
-      syntax = Regexp::Syntax.for("ruby/#{RUBY_VERSION}")
+      syntax = Regexp::SyntaxFzs.for("ruby/#{RUBY_VERSION}")
       excessive = syntax.features.fetch(:property, []).reject do |prop|
         begin
           Regexp.new("\\p{#{prop}}")

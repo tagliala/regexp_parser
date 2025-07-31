@@ -1,6 +1,8 @@
-RAGEL_SOURCE_DIR = File.join(__dir__, '../lib/regexp_parser/scanner')
-RAGEL_OUTPUT_DIR = File.join(__dir__, '../lib/regexp_parser')
-RAGEL_SOURCE_FILES = %w[scanner] # scanner.rl imports the other files
+# frozen_string_literal: true
+
+RAGEL_SOURCE_DIR = File.join(__dir__, '../lib/regexp_parser_fzs/scanner')
+RAGEL_OUTPUT_DIR = File.join(__dir__, '../lib/regexp_parser_fzs')
+RAGEL_SOURCE_FILES = %w[scanner].freeze # scanner.rl imports the other files
 
 namespace :ragel do
   desc 'Process the ragel source files and output ruby code'
@@ -22,6 +24,8 @@ namespace :ragel do
 
       File.open(output_path, 'w') do |file|
         file.puts <<~RUBY
+          # frozen_string_literal: true
+
           # -*- warn-indent:false;  -*-
           #
           # THIS IS A GENERATED FILE, DO NOT EDIT DIRECTLY

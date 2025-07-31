@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Syntax::V1_8_6) do
+RSpec.describe(Regexp::SyntaxFzs::V1_8_6) do
   include_examples 'syntax',
   implements: {
     assertion: T::Assertion::Lookahead,

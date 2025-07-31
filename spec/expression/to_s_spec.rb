@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe('Expression::Base#to_s') do
@@ -96,11 +98,11 @@ RSpec.describe('Expression::Base#to_s') do
     expect(root.to_s).to eql('a+{1}{2}')
   end
 
-  # regression test for https://github.com/ammar/regexp_parser/issues/74
+  # regression test for https://github.com/ammar/regexp_parser_fzs/issues/74
   specify('non-ascii comment') do
     pattern = '(?x) 😋 # 😋'
     root = RP.parse(pattern)
-    expect(root.last).to be_a(Regexp::Expression::Comment)
+    expect(root.last).to be_a(Regexp::ExpressionFzs::Comment)
     expect(root.last.to_s).to eql('# 😋')
     expect(root.to_s).to eql(pattern)
   end

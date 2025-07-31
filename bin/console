@@ -5,13 +5,13 @@ require 'regexp_parser'
 require 'regexp_property_values'
 
 RL = Regexp::Lexer
-RP = Regexp::Parser
-RS = Regexp::Scanner
+RP = Regexp::ParserFzs
+RS = Regexp::ScannerFzs
 PV = RegexpPropertyValues
 
 def lex(...);   Regexp::Lexer.lex(...)    end
-def parse(...); Regexp::Parser.parse(...) end
-def scan(...);  Regexp::Scanner.scan(...) end
+def parse(...); Regexp::ParserFzs.parse(...) end
+def scan(...);  Regexp::ScannerFzs.scan(...) end
 
 require 'irb'
 IRB.start(__FILE__)

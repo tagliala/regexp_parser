@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Expression::Subexpression) do
+RSpec.describe(Regexp::ExpressionFzs::Subexpression) do
   # check #ts, #te
   include_examples 'parse', /abcd|ghij|klmn|pqur/,
     [0]    => [Alternation, ts: 0,  te: 19],

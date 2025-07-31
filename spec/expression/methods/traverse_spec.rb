@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe('Subexpression#traverse') do
@@ -46,7 +48,7 @@ RSpec.describe('Subexpression#traverse') do
     expect(enum).to be_a(Enumerator)
     event, expr, idx = enum.next
     expect(event).to eq(:visit)
-    expect(expr).to be_a(Regexp::Expression::Literal)
+    expect(expr).to be_a(Regexp::ExpressionFzs::Literal)
     expect(idx).to eq(0)
   end
 
@@ -107,7 +109,7 @@ RSpec.describe('Subexpression#traverse') do
 
     expect(enum).to be_a(Enumerator)
     expr, idx = enum.next
-    expect(expr).to be_a(Regexp::Expression::Literal)
+    expect(expr).to be_a(Regexp::ExpressionFzs::Literal)
     expect(idx).to eq(0)
   end
 
@@ -122,7 +124,7 @@ RSpec.describe('Subexpression#traverse') do
     array.each do |item|
       expect(item).to be_instance_of(Array)
       expect(item.length).to eq 2
-      expect(item.first).to be_a(Regexp::Expression::Base)
+      expect(item.first).to be_a(Regexp::ExpressionFzs::Base)
       expect(item.last).to be_a(Integer)
     end
   end

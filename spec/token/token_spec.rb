@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Token) do
+RSpec.describe(Regexp::TokenFzs) do
   specify('#offset') do
     regexp = /ab?cd/
     tokens = RL.lex(regexp)

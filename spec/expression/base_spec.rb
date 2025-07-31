@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Expression::Base) do
+RSpec.describe(Regexp::ExpressionFzs::Base) do
   # test #level
   include_examples 'parse', /^a(b(c(d)))e$/,
     [0]          => [to_s: '^',         level: 0],
@@ -56,7 +58,7 @@ RSpec.describe(Regexp::Expression::Base) do
     [] => [Root, to_re: /^a*(b([cde]+))+f?$/]
 
   specify '#parent' do
-    root = Regexp::Parser.parse(/(a(b)){42}/)
+    root = Regexp::ParserFzs.parse(/(a(b)){42}/)
 
     expect(root.parent).to be_nil
     expect(root[0].parent).to eq root
@@ -68,15 +70,15 @@ RSpec.describe(Regexp::Expression::Base) do
 
   specify '#to_re warns when used on set members' do
     expect do
-      result = Regexp::Parser.parse(/[\b]/)[0][0].to_re
+      result = Regexp::ParserFzs.parse(/[\b]/)[0][0].to_re
       expect(result).to eq(/\b/)
     end.to output(/set member/).to_stderr
   end
 
   specify 'updating #quantifier updates #repetitions' do
-    exp = Regexp::Parser.parse(/a{3}/)[0]
+    exp = Regexp::ParserFzs.parse(/a{3}/)[0]
     expect(exp.repetitions).to eq 3..3
-    exp.quantifier = Regexp::Parser.parse(/b{5}/)[0].quantifier
+    exp.quantifier = Regexp::ParserFzs.parse(/b{5}/)[0].quantifier
     expect(exp.repetitions).to eq 5..5
   end
 end

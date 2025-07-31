@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe('Expression::Base#strfregexp') do
@@ -73,25 +75,25 @@ RSpec.describe('Expression::Base#strfregexp') do
     expect(root.strfregexp('%y')).to eq 'expression'
     expect(root.strfregexp('%k')).to eq 'root'
     expect(root.strfregexp('%i')).to eq 'expression:root'
-    expect(root.strfregexp('%c')).to eq 'Regexp::Expression::Root'
+    expect(root.strfregexp('%c')).to eq 'Regexp::ExpressionFzs::Root'
 
     a = root.first
     expect(a.strfregexp('%y')).to eq 'literal'
     expect(a.strfregexp('%k')).to eq 'literal'
     expect(a.strfregexp('%i')).to eq 'literal:literal'
-    expect(a.strfregexp('%c')).to eq 'Regexp::Expression::Literal'
+    expect(a.strfregexp('%c')).to eq 'Regexp::ExpressionFzs::Literal'
 
     set = root[1]
     expect(set.strfregexp('%y')).to eq 'set'
     expect(set.strfregexp('%k')).to eq 'character'
     expect(set.strfregexp('%i')).to eq 'set:character'
-    expect(set.strfregexp('%c')).to eq 'Regexp::Expression::CharacterSet'
+    expect(set.strfregexp('%c')).to eq 'Regexp::ExpressionFzs::CharacterSet'
 
     group = root.last
     expect(group.strfregexp('%y')).to eq 'group'
     expect(group.strfregexp('%k')).to eq 'capture'
     expect(group.strfregexp('%i')).to eq 'group:capture'
-    expect(group.strfregexp('%c')).to eq 'Regexp::Expression::Group::Capture'
+    expect(group.strfregexp('%c')).to eq 'Regexp::ExpressionFzs::Group::Capture'
   end
 
   specify('#strfregexp quantifier') do

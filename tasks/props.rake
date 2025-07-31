@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 namespace :props do
   desc 'Write new property value hashes for the properties scanner'
   task :update do
     require 'regexp_property_values'
     RegexpPropertyValues.update
-    dir = File.join(__dir__, '../lib/regexp_parser/scanner/properties')
+    dir = File.join(__dir__, '../lib/regexp_parser/scanner_fzs/properties')
 
     write_hash_to_file = ->(hash, path) do
       File.open(path, 'w') do |f|

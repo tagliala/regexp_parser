@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe('Parsing errors') do
-  let(:parser) { Regexp::Parser.new }
+  let(:parser) { Regexp::ParserFzs.new }
   before { parser.parse(/foo/) } # initializes ivars
 
   it('raises UnknownTokenTypeError for unknown token types') do
-    expect { parser.send(:parse_token, Regexp::Token.new(:foo, :bar)) }
-      .to raise_error(Regexp::Parser::UnknownTokenTypeError)
+    expect { parser.send(:parse_token, Regexp::TokenFzs.new(:foo, :bar)) }
+      .to raise_error(Regexp::ParserFzs::UnknownTokenTypeError)
   end
 
   RSpec.shared_examples 'UnknownTokenError' do |type|
     it "raises for unknown tokens of type #{type}" do
-      expect { parser.send(:parse_token, Regexp::Token.new(type, :foo)) }
-        .to raise_error(Regexp::Parser::UnknownTokenError)
+      expect { parser.send(:parse_token, Regexp::TokenFzs.new(type, :foo)) }
+        .to raise_error(Regexp::ParserFzs::UnknownTokenError)
     end
   end
 

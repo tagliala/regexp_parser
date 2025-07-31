@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Expression::Conditional) do
+RSpec.describe(Regexp::ExpressionFzs::Conditional) do
   specify('Conditional#condition, #branches') do
     conditional = RP.parse(/(?<A>a)(?(<A>)T|F)/)[1]
     expect(conditional.condition).to eq conditional[0]

@@ -114,8 +114,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * only `Subexpression#te` used to include the quantifier
   * now `#te` is the end index without quantifier, as for other expressions
 - fixed `NoMethodError` when calling `#starts_at` or `#ts` on empty sequences
-  * e.g. `Regexp::Parser.parse(/|/)[0].starts_at`
-  * e.g. `Regexp::Parser.parse(/[&&]/)[0][0].starts_at`
+  * e.g. `Regexp::ParserFzs.parse(/|/)[0].starts_at`
+  * e.g. `Regexp::ParserFzs.parse(/[&&]/)[0][0].starts_at`
 - fixed nested comment groups breaking local x-options
   * e.g. in `/(?x:(?#hello)) /`, the x-option wrongly applied to the whitespace
 - fixed nested comment groups breaking conditionals
@@ -125,8 +125,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fixed Scanner accepting two cases of invalid Regexp syntax
   * unmatched closing parentheses (`)`) and k-backrefs with number 0 (`\k<0>`)
   * these are a `SyntaxError` in Ruby, so could only be passed as a String
-  * they now raise a `Regexp::Scanner::ScannerError`
-- fixed some scanner errors not inheriting from `Regexp::Scanner::ScannerError`
+  * they now raise a `Regexp::ScannerFzs::ScannerError`
+- fixed some scanner errors not inheriting from `Regexp::ScannerFzs::ScannerError`
 - reduced verbosity of inspect / pretty print output
 
 ## [2.7.0] - 2023-02-08 - Janosch Müller
@@ -134,11 +134,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `Regexp::Lexer.lex` now streams tokens when called with a block
-  * it can now take arbitrarily large input, just like `Regexp::Scanner`
-  * this also slightly improves `Regexp::Parser.parse` performance
-  * note: `Regexp::Parser.parse` still does not and will not support streaming
+  * it can now take arbitrarily large input, just like `Regexp::ScannerFzs`
+  * this also slightly improves `Regexp::ParserFzs.parse` performance
+  * note: `Regexp::ParserFzs.parse` still does not and will not support streaming
 - improved performance of `Subexpression#each_expression`
-- minor improvements to `Regexp::Scanner` performance
+- minor improvements to `Regexp::ScannerFzs` performance
 - overall improvement of parse performance: about 10% for large Regexps
 
 ### Fixed
@@ -151,7 +151,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - fixed `SystemStackError` when cloning recursive subexpression calls
-  * e.g. `Regexp::Parser.parse(/a|b\g<0>/).dup`
+  * e.g. `Regexp::ParserFzs.parse(/a|b\g<0>/).dup`
 
 ## [2.6.1] - 2022-11-16 - Janosch Müller
 
@@ -203,7 +203,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * e.g. the alternatives in `/a|[b]/` had an inconsistent nesting_level
 - fixed `Scanner` accepting invalid posix classes, e.g. `[[:foo:]]`
   * they raise a `SyntaxError` when used in a Regexp, so could only be passed as String
-  * they now raise a `Regexp::Scanner::ValidationError` in the `Scanner`
+  * they now raise a `Regexp::ScannerFzs::ValidationError` in the `Scanner`
 
 ### Added
 
@@ -240,7 +240,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - removed five inexistent unicode properties from `Syntax#features`
-  * these were never supported by Ruby or the `Regexp::Scanner`
+  * these were never supported by Ruby or the `Regexp::ScannerFzs`
   * thanks to [Markus Schirp](https://github.com/mbj) for the report
 
 ## [2.3.0] - 2022-04-08 - Janosch Müller
@@ -286,14 +286,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - common ancestor for all scanning/parsing/lexing errors
-  * `Regexp::Parser::Error` can now be rescued as a catch-all
+  * `Regexp::ParserFzs::Error` can now be rescued as a catch-all
   * the following errors (and their many descendants) now inherit from it:
     - `Regexp::Expression::Conditional::TooManyBranches`
-    - `Regexp::Parser::ParserError`
-    - `Regexp::Scanner::ScannerError`
-    - `Regexp::Scanner::ValidationError`
+    - `Regexp::ParserFzs::ParserError`
+    - `Regexp::ScannerFzs::ScannerError`
+    - `Regexp::ScannerFzs::ValidationError`
     - `Regexp::Syntax::SyntaxError`
-  * it replaces `ArgumentError` in some rare cases (`Regexp::Parser.parse('?')`)
+  * it replaces `ArgumentError` in some rare cases (`Regexp::ParserFzs.parse('?')`)
   * thanks to [sandstrom](https://github.com/sandstrom) for the cue
 
 ### Fixed
@@ -470,7 +470,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * this will affect you if you call `#eql?`/`#equal?` on expressions or use them as Hash keys
 - Fixed `#clone` results for `Sequences`, e.g. alternations and conditionals
   * the inner `#text` was cloned onto the `Sequence` and thus duplicated
-  * e.g. `Regexp::Parser.parse(/(a|bc)/).clone.to_s # => (aa|bcbc)`
+  * e.g. `Regexp::ParserFzs.parse(/(a|bc)/).clone.to_s # => (aa|bcbc)`
 - Fixed inconsistent `#to_s` output for `Sequences`
   * it used to return only the "specific" text, e.g. "|" for an alternation
   * now it includes nested expressions as it does for all other `Subexpressions`

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-RSpec.describe(Regexp::Scanner) do
+RSpec.describe(Regexp::ScannerFzs) do
   specify('scanner returns an array') do
     expect(RS.scan('abc')).to be_instance_of(Array)
   end
